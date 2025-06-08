@@ -1,81 +1,39 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const DisplayDetails = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { formData } = location.state || {};
 
   if (!formData) {
-    return <div style={styles.container}>No data submitted.</div>;
+    return <div className="details-no-data">No data submitted.</div>;
   }
 
   return (
     <>
       <div className="parallax-bg" />
-      <div style={styles.outerContainer}>
-        <div className="glass" style={styles.container}>
-          <h2 style={styles.heading}>Submitted Details</h2>
-          <div style={styles.detailsContainer}>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>First Name:</span> {formData.firstName}</p>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>Last Name:</span> {formData.lastName}</p>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>Username:</span> {formData.username}</p>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>E-mail:</span> {formData.email}</p>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>Phone No.:</span> {formData.phoneCountryCode} {formData.phoneNumber}</p>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>Country:</span> {formData.country}</p>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>City:</span> {formData.city}</p>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>PAN No.:</span> {formData.panNo}</p>
-            <p style={styles.detailItem}><span style={styles.detailLabel}>Aadhar No.:</span> {formData.aadharNo}</p>
+      <div className="form-outer-container">
+        <div className="glass form-container details-container">
+          <h2 className="form-heading">Submitted Details</h2>
+          <div className="details-content">
+            <p className="detail-item"><span className="detail-label">First Name:</span> {formData.firstName}</p>
+            <p className="detail-item"><span className="detail-label">Last Name:</span> {formData.lastName}</p>
+            <p className="detail-item"><span className="detail-label">Username:</span> {formData.username}</p>
+            <p className="detail-item"><span className="detail-label">E-mail:</span> {formData.email}</p>
+            <p className="detail-item"><span className="detail-label">Phone No.:</span> {formData.phoneCountryCode} {formData.phoneNumber}</p>
+            <p className="detail-item"><span className="detail-label">Country:</span> {formData.country}</p>
+            <p className="detail-item"><span className="detail-label">City:</span> {formData.city}</p>
+            <p className="detail-item"><span className="detail-label">PAN No.:</span> {formData.panNo}</p>
+            <p className="detail-item"><span className="detail-label">Aadhar No.:</span> {formData.aadharNo}</p>
           </div>
+          <button type="button" onClick={() => navigate('/')} className="details-back-button">
+            Go Back to Registration
+          </button>
         </div>
       </div>
     </>
   );
-};
-
-const styles = {
-  outerContainer: {
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '2vw',
-  },
-  container: {
-    maxWidth: '600px',
-    margin: '50px auto',
-    padding: '30px',
-    border: '1px solid #ccc',
-    borderRadius: '10px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#f9f9f9',
-    fontFamily: 'Arial, sans-serif',
-    transition: 'transform 0.3s ease',
-    '@media (max-width: 768px)': {
-      margin: '20px',
-      padding: '20px',
-    },
-  },
-  heading: {
-    textAlign: 'center',
-    color: '#333',
-    marginBottom: '25px',
-    fontSize: '28px',
-  },
-  detailsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-  },
-  detailItem: {
-    fontSize: '16px',
-    color: '#444',
-    margin: '0',
-  },
-  detailLabel: {
-    fontWeight: 'bold',
-    color: '#333',
-    marginRight: '8px',
-  },
 };
 
 export default DisplayDetails; 
