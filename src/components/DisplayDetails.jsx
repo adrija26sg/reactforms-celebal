@@ -10,24 +10,36 @@ const DisplayDetails = () => {
   }
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Submitted Details</h2>
-      <div style={styles.detailsContainer}>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>First Name:</span> {formData.firstName}</p>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>Last Name:</span> {formData.lastName}</p>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>Username:</span> {formData.username}</p>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>E-mail:</span> {formData.email}</p>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>Phone No.:</span> {formData.phoneCountryCode} {formData.phoneNumber}</p>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>Country:</span> {formData.country}</p>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>City:</span> {formData.city}</p>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>PAN No.:</span> {formData.panNo}</p>
-        <p style={styles.detailItem}><span style={styles.detailLabel}>Aadhar No.:</span> {formData.aadharNo}</p>
+    <>
+      <div className="parallax-bg" />
+      <div style={styles.outerContainer}>
+        <div className="glass" style={styles.container}>
+          <h2 style={styles.heading}>Submitted Details</h2>
+          <div style={styles.detailsContainer}>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>First Name:</span> {formData.firstName}</p>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>Last Name:</span> {formData.lastName}</p>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>Username:</span> {formData.username}</p>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>E-mail:</span> {formData.email}</p>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>Phone No.:</span> {formData.phoneCountryCode} {formData.phoneNumber}</p>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>Country:</span> {formData.country}</p>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>City:</span> {formData.city}</p>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>PAN No.:</span> {formData.panNo}</p>
+            <p style={styles.detailItem}><span style={styles.detailLabel}>Aadhar No.:</span> {formData.aadharNo}</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 const styles = {
+  outerContainer: {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '2vw',
+  },
   container: {
     maxWidth: '600px',
     margin: '50px auto',

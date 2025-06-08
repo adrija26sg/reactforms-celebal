@@ -22,6 +22,7 @@ const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
 
   const countries = [
     { name: 'USA', cities: ['New York', 'Los Angeles'] },
@@ -96,332 +97,211 @@ const RegistrationForm = () => {
     validateForm();
 
     if (isFormValid) {
-      navigate('/details', { state: { formData } });
+      setShowSuccessAnimation(true);
+      setTimeout(() => {
+        navigate('/details', { state: { formData } });
+      }, 1500);
+    } else {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Registration Form</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        {/* First Name */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>First Name:</label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            style={styles.input}
-          />
-          {errors.firstName && <p style={styles.error}>{errors.firstName}</p>}
-        </div>
-
-        {/* Last Name */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Last Name:</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            style={styles.input}
-          />
-          {errors.lastName && <p style={styles.error}>{errors.lastName}</p>}
-        </div>
-
-        {/* Username */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            style={styles.input}
-          />
-          {errors.username && <p style={styles.error}>{errors.username}</p>}
-        </div>
-
-        {/* E-mail */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>E-mail:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            style={styles.input}
-          />
-          {errors.email && <p style={styles.error}>{errors.email}</p>}
-        </div>
-
-        {/* Password */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Password:</label>
-          <div style={styles.passwordContainer}>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              style={styles.input}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              style={styles.togglePasswordButton}
-            >
-              {showPassword ? 'Hide' : 'Show'}
+    <>
+      <div className="parallax-bg" />
+      <div className="form-outer-container">
+        <div className="glass form-container">
+          <h2 className="form-heading">Registration Form</h2>
+          <form onSubmit={handleSubmit} className="form-layout" autoComplete="off">
+            {/* First Name */}
+            <div className="formGroup">
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder=" "
+                autoComplete="off"
+                id="firstName"
+              />
+              <label htmlFor="firstName">First Name</label>
+              {errors.firstName && <p className="error">{errors.firstName}</p>}
+            </div>
+            {/* Last Name */}
+            <div className="formGroup">
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder=" "
+                autoComplete="off"
+                id="lastName"
+              />
+              <label htmlFor="lastName">Last Name</label>
+              {errors.lastName && <p className="error">{errors.lastName}</p>}
+            </div>
+            {/* Username */}
+            <div className="formGroup">
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder=" "
+                autoComplete="off"
+                id="username"
+              />
+              <label htmlFor="username">Username</label>
+              {errors.username && <p className="error">{errors.username}</p>}
+            </div>
+            {/* E-mail */}
+            <div className="formGroup">
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder=" "
+                autoComplete="off"
+                id="email"
+              />
+              <label htmlFor="email">E-mail</label>
+              {errors.email && <p className="error">{errors.email}</p>}
+            </div>
+            {/* Password */}
+            <div className="formGroup password-group">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder=" "
+                autoComplete="new-password"
+                id="password"
+              />
+              <label htmlFor="password">Password</label>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="togglePasswordButton"
+                tabIndex={-1}
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+              {errors.password && <p className="error">{errors.password}</p>}
+            </div>
+            {/* Phone Number */}
+            <div className="phone-group-container">
+              <div className="formGroup country-code-group">
+                <select
+                  name="phoneCountryCode"
+                  value={formData.phoneCountryCode}
+                  onChange={handleChange}
+                  id="phoneCountryCode"
+                  className="countryCodeSelect"
+                  placeholder=" "
+                >
+                  <option value="+1">+1</option>
+                  <option value="+91">+91</option>
+                  <option value="+44">+44</option>
+                </select>
+                <label htmlFor="phoneCountryCode">Code</label>
+              </div>
+              <div className="formGroup phone-number-input-group">
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder=" "
+                  autoComplete="off"
+                  id="phoneNumber"
+                  className="phoneNumberInput"
+                />
+                <label htmlFor="phoneNumber">Phone Number</label>
+              </div>
+              {errors.phoneNumber && <p className="error">{errors.phoneNumber}</p>}
+            </div>
+            {/* Country */}
+            <div className="formGroup">
+              <select
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+                id="country"
+              >
+                <option value="">Select Country</option>
+                {countries.map((c) => (
+                  <option key={c.name} value={c.name}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="country">Country</label>
+              {errors.country && <p className="error">{errors.country}</p>}
+            </div>
+            {/* City */}
+            <div className="formGroup">
+              <select
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                disabled={!formData.country}
+                id="city"
+              >
+                <option value="">Select City</option>
+                {getCitiesByCountry(formData.country).map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="city">City</label>
+              {errors.city && <p className="error">{errors.city}</p>}
+            </div>
+            {/* PAN No. */}
+            <div className="formGroup">
+              <input
+                type="text"
+                name="panNo"
+                value={formData.panNo}
+                onChange={handleChange}
+                placeholder=" "
+                autoComplete="off"
+                id="panNo"
+              />
+              <label htmlFor="panNo">PAN No.</label>
+              {errors.panNo && <p className="error">{errors.panNo}</p>}
+            </div>
+            {/* Aadhar No. */}
+            <div className="formGroup">
+              <input
+                type="text"
+                name="aadharNo"
+                value={formData.aadharNo}
+                onChange={handleChange}
+                placeholder=" "
+                autoComplete="off"
+                id="aadharNo"
+              />
+              <label htmlFor="aadharNo">Aadhar No.</label>
+              {errors.aadharNo && <p className="error">{errors.aadharNo}</p>}
+            </div>
+            <button type="submit" disabled={!isFormValid || isSubmitting}>
+              Submit
             </button>
-          </div>
-          {errors.password && <p style={styles.error}>{errors.password}</p>}
+          </form>
+          {showSuccessAnimation && (
+            <div className="success-animation-overlay">
+              <div className="success-animation-checkmark">✔</div>
+              <p>Submission Successful!</p>
+            </div>
+          )}
         </div>
-
-        {/* Phone Number */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Phone No.:</label>
-          <div style={styles.phoneInputGroup}>
-            <select
-              name="phoneCountryCode"
-              value={formData.phoneCountryCode}
-              onChange={handleChange}
-              style={styles.countryCodeSelect}
-            >
-              <option value="+1">+1 (USA)</option>
-              <option value="+91">+91 (India)</option>
-              <option value="+44">+44 (UK)</option>
-              {/* Add more country codes as needed */}
-            </select>
-            <input
-              type="text"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              style={styles.phoneNumberInput}
-              placeholder="Enter 10-digit number"
-            />
-          </div>
-          {errors.phoneNumber && <p style={styles.error}>{errors.phoneNumber}</p>}
-        </div>
-
-        {/* Country */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Country:</label>
-          <select
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            style={styles.select}
-          >
-            <option value="">Select Country</option>
-            {countries.map((c) => (
-              <option key={c.name} value={c.name}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-          {errors.country && <p style={styles.error}>{errors.country}</p>}
-        </div>
-
-        {/* City */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>City:</label>
-          <select
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            style={styles.select}
-            disabled={!formData.country}
-          >
-            <option value="">Select City</option>
-            {getCitiesByCountry(formData.country).map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-          {errors.city && <p style={styles.error}>{errors.city}</p>}
-        </div>
-
-        {/* PAN No. */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>PAN No.:</label>
-          <input
-            type="text"
-            name="panNo"
-            value={formData.panNo}
-            onChange={handleChange}
-            style={styles.input}
-          />
-          {errors.panNo && <p style={styles.error}>{errors.panNo}</p>}
-        </div>
-
-        {/* Aadhar No. */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Aadhar No.:</label>
-          <input
-            type="text"
-            name="aadharNo"
-            value={formData.aadharNo}
-            onChange={handleChange}
-            style={styles.input}
-          />
-          {errors.aadharNo && <p style={styles.error}>{errors.aadharNo}</p>}
-        </div>
-
-        <button type="submit" disabled={!isFormValid} style={isFormValid ? styles.submitButton : styles.submitButtonDisabled}>
-          Submit
-        </button>
-      </form>
-    </div>
+      </div>
+    </>
   );
-};
-
-const styles = {
-  container: {
-    maxWidth: '600px',
-    margin: '50px auto',
-    padding: '30px',
-    border: '1px solid #ccc',
-    borderRadius: '10px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#f9f9f9',
-    fontFamily: 'Arial, sans-serif',
-    transition: 'transform 0.3s ease',
-    '@media (max-width: 768px)': {
-      margin: '20px',
-      padding: '20px',
-    },
-  },
-  heading: {
-    textAlign: 'center',
-    color: '#333',
-    marginBottom: '25px',
-    fontSize: '28px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '18px',
-  },
-  formGroup: {
-    marginBottom: '12px',
-  },
-  label: {
-    display: 'block',
-    marginBottom: '8px',
-    fontWeight: 'bold',
-    color: '#555',
-    fontSize: '15px',
-  },
-  input: {
-    width: '100%',
-    padding: '12px',
-    border: '1px solid #ddd',
-    borderRadius: '6px',
-    boxSizing: 'border-box',
-    fontSize: '16px',
-    transition: 'border-color 0.3s ease',
-    '&:focus': {
-      borderColor: '#5cb85c',
-      outline: 'none',
-    },
-  },
-  select: {
-    width: '100%',
-    padding: '12px',
-    border: '1px solid #ddd',
-    borderRadius: '6px',
-    boxSizing: 'border-box',
-    fontSize: '16px',
-    backgroundColor: '#fff',
-    transition: 'border-color 0.3s ease',
-    '&:focus': {
-      borderColor: '#5cb85c',
-      outline: 'none',
-    },
-  },
-  passwordContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-  },
-  togglePasswordButton: {
-    padding: '10px 15px',
-    marginLeft: '-1px', // Overlap border
-    border: '1px solid #ddd',
-    borderRadius: '0 6px 6px 0',
-    backgroundColor: '#e9e9e9',
-    cursor: 'pointer',
-    fontSize: '14px',
-    color: '#555',
-    transition: 'background-color 0.3s ease',
-    '&:hover': {
-      backgroundColor: '#ddd',
-    },
-  },
-  phoneInputGroup: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  countryCodeSelect: {
-    padding: '12px',
-    border: '1px solid #ddd',
-    borderRadius: '6px 0 0 6px',
-    backgroundColor: '#fff',
-    fontSize: '16px',
-    marginRight: '-1px', // Overlap border
-    transition: 'border-color 0.3s ease',
-    '&:focus': {
-      borderColor: '#5cb85c',
-      outline: 'none',
-    },
-  },
-  phoneNumberInput: {
-    flexGrow: 1,
-    padding: '12px',
-    border: '1px solid #ddd',
-    borderRadius: '0 6px 6px 0',
-    boxSizing: 'border-box',
-    fontSize: '16px',
-    transition: 'border-color 0.3s ease',
-    '&:focus': {
-      borderColor: '#5cb85c',
-      outline: 'none',
-    },
-  },
-  error: {
-    color: '#d9534f',
-    fontSize: '14px',
-    marginTop: '6px',
-  },
-  submitButton: {
-    backgroundColor: '#5cb85c',
-    color: 'white',
-    padding: '14px 20px',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    marginTop: '20px',
-    transition: 'background-color 0.3s ease',
-    '&:hover': {
-      backgroundColor: '#4cae4c',
-    },
-  },
-  submitButtonDisabled: {
-    backgroundColor: '#aaddaa',
-    color: '#eeeeee',
-    padding: '14px 20px',
-    border: 'none',
-    borderRadius: '6px',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    marginTop: '20px',
-    cursor: 'not-allowed',
-  },
 };
 
 export default RegistrationForm; 
