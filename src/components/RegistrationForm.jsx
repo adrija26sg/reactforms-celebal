@@ -23,6 +23,7 @@ const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
+  const [touched, setTouched] = useState({});
 
   const countries = [
     { name: 'USA', cities: ['New York', 'Los Angeles'] },
@@ -44,6 +45,10 @@ const RegistrationForm = () => {
     setFormData({
       ...formData,
       [name]: value,
+    });
+    setTouched({
+      ...touched,
+      [name]: true,
     });
   };
 
@@ -94,9 +99,14 @@ const RegistrationForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    const newTouched = {};
+    for (const key in formData) {
+      newTouched[key] = true;
+    }
+    setTouched(newTouched);
     validateForm();
 
-    if (isFormValid) {
+    if (Object.keys(errors).length === 0) {
       setShowSuccessAnimation(true);
       setTimeout(() => {
         navigate('/details', { state: { formData } });
@@ -125,7 +135,7 @@ const RegistrationForm = () => {
                 id="firstName"
               />
               <label htmlFor="firstName">First Name</label>
-              {errors.firstName && <p className="error">{errors.firstName}</p>}
+              { (touched.firstName || isSubmitting) && errors.firstName && <p className="error">{errors.firstName}</p>}
             </div>
             {/* Last Name */}
             <div className="formGroup">
@@ -139,7 +149,7 @@ const RegistrationForm = () => {
                 id="lastName"
               />
               <label htmlFor="lastName">Last Name</label>
-              {errors.lastName && <p className="error">{errors.lastName}</p>}
+              { (touched.lastName || isSubmitting) && errors.lastName && <p className="error">{errors.lastName}</p>}
             </div>
             {/* Username */}
             <div className="formGroup">
@@ -153,7 +163,7 @@ const RegistrationForm = () => {
                 id="username"
               />
               <label htmlFor="username">Username</label>
-              {errors.username && <p className="error">{errors.username}</p>}
+              { (touched.username || isSubmitting) && errors.username && <p className="error">{errors.username}</p>}
             </div>
             {/* E-mail */}
             <div className="formGroup">
@@ -167,7 +177,7 @@ const RegistrationForm = () => {
                 id="email"
               />
               <label htmlFor="email">E-mail</label>
-              {errors.email && <p className="error">{errors.email}</p>}
+              { (touched.email || isSubmitting) && errors.email && <p className="error">{errors.email}</p>}
             </div>
             {/* Password */}
             <div className="formGroup password-group">
@@ -189,7 +199,7 @@ const RegistrationForm = () => {
               >
                 {showPassword ? 'Hide' : 'Show'}
               </button>
-              {errors.password && <p className="error">{errors.password}</p>}
+              { (touched.password || isSubmitting) && errors.password && <p className="error">{errors.password}</p>}
             </div>
             {/* Phone Number */}
             <div className="phone-group-container">
@@ -221,7 +231,7 @@ const RegistrationForm = () => {
                 />
                 <label htmlFor="phoneNumber">Phone Number</label>
               </div>
-              {errors.phoneNumber && <p className="error">{errors.phoneNumber}</p>}
+              { (touched.phoneNumber || isSubmitting) && errors.phoneNumber && <p className="error">{errors.phoneNumber}</p>}
             </div>
             {/* Country */}
             <div className="formGroup">
@@ -239,7 +249,7 @@ const RegistrationForm = () => {
                 ))}
               </select>
               <label htmlFor="country">Country</label>
-              {errors.country && <p className="error">{errors.country}</p>}
+              { (touched.country || isSubmitting) && errors.country && <p className="error">{errors.country}</p>}
             </div>
             {/* City */}
             <div className="formGroup">
@@ -258,7 +268,7 @@ const RegistrationForm = () => {
                 ))}
               </select>
               <label htmlFor="city">City</label>
-              {errors.city && <p className="error">{errors.city}</p>}
+              { (touched.city || isSubmitting) && errors.city && <p className="error">{errors.city}</p>}
             </div>
             {/* PAN No. */}
             <div className="formGroup">
@@ -272,7 +282,7 @@ const RegistrationForm = () => {
                 id="panNo"
               />
               <label htmlFor="panNo">PAN No.</label>
-              {errors.panNo && <p className="error">{errors.panNo}</p>}
+              { (touched.panNo || isSubmitting) && errors.panNo && <p className="error">{errors.panNo}</p>}
             </div>
             {/* Aadhar No. */}
             <div className="formGroup">
@@ -286,7 +296,7 @@ const RegistrationForm = () => {
                 id="aadharNo"
               />
               <label htmlFor="aadharNo">Aadhar No.</label>
-              {errors.aadharNo && <p className="error">{errors.aadharNo}</p>}
+              { (touched.aadharNo || isSubmitting) && errors.aadharNo && <p className="error">{errors.aadharNo}</p>}
             </div>
             <button type="submit" disabled={!isFormValid || isSubmitting}>
               Submit
