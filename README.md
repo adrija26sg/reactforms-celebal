@@ -1,6 +1,11 @@
 # React Registration Form
 
 This project is a modern React application featuring a beautiful registration form with advanced UI/UX, validation, and a details display page.
+##IMAGES
+![image](https://github.com/user-attachments/assets/b2aa3d63-2f89-4d1e-baaf-4326247d638e)
+![image](https://github.com/user-attachments/assets/f81dddbe-e569-4192-b0fa-68ecd89ed8a5)
+![image](https://github.com/user-attachments/assets/2c43727a-d3ca-4918-9a54-a509e7b18ce0)
+
 
 ## Features
 
